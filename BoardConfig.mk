@@ -5,10 +5,17 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-DEVICE_PATH := device/samsung/gts9wifi
+DEVICE_PATH := device/samsung/gts9wifi/
 
 # For building with minimal manifest
 ALLOW_MISSING_DEPENDENCIES := true
+
+# PRODUCT_COPY_FILES directives.
+BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
+DISABLE_ARTIFACT_PATH_REQUIREMENTS := true
+
+# Manifest
+PRODUCT_ENFORCE_VINTF_MANIFEST_OVERRIDE := true
 
 # Architecture
 TARGET_ARCH := arm64
@@ -108,9 +115,17 @@ PLATFORM_SECURITY_PATCH := 2099-12-31
 VENDOR_SECURITY_PATCH := 2099-12-31
 PLATFORM_VERSION := 16.1.0
 
+# Properties
+TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
+
+# Crypto
+TW_INCLUDE_CRYPTO := true
+TW_INCLUDE_RESETPROP := true
+BOARD_USES_QCOM_FBE_DECRYPTION := true
+BOARD_USES_METADATA_PARTITION := true
+
 # TWRP Configuration
-#TW_H_OFFSET := -100
-#TW_Y_OFFSET := 100
+TW_BACKUP_EXCLUSIONS := /data/fonts
 TW_MAX_BRIGHTNESS := 255
 TW_ROTATION := 270
 TW_INCLUDE_NTFS_3G := true
